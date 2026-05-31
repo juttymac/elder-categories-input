@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elder Input — Categories of Growth | Summit Church</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fanwood+Text:ital@0;1&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --grey: #494744;
+    --gold: #9C9067;
+    --gold-soft: #9C906715;
+    --gold-line: #9C906740;
+    --grey-soft: #49474410;
+    --grey-line: #49474422;
+    --bg: #FAF9F6;
+    --card: #FFFFFF;
+    --text: #494744;
+    --text-soft: #6B6862;
+    --text-faint: #94918A;
+    --serif: 'Fanwood Text', Georgia, serif;
+    --sans: 'Montserrat', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: var(--serif);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ---------- Header ---------- */
+  .masthead {
+    background: var(--grey);
+    color: #fff;
+    padding: 3.5rem 1.5rem 3rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .masthead::after {
+    content: "";
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 4px;
+    background: var(--gold);
+  }
+  .mast-kicker {
+    font-family: var(--sans);
+    font-size: 0.72rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 1.1rem;
+  }
+  .mast-title {
+    font-family: var(--sans);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    font-size: clamp(1.6rem, 4.5vw, 2.6rem);
+    line-height: 1.15;
+    margin-bottom: 0.9rem;
+  }
+  .mast-sub {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.05rem;
+    color: #D6D3CC;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  /* ---------- Layout ---------- */
+  .wrap {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  /* ---------- Intro ---------- */
+  .intro {
+    margin: 3rem auto 1rem;
+  }
+  .intro p {
+    font-size: 1.12rem;
+    margin-bottom: 1.1rem;
+  }
+  .intro .lead {
+    font-size: 1.28rem;
+    color: var(--grey);
+  }
+  .intro .signoff {
+    font-style: italic;
+    color: var(--text-soft);
+  }
+
+  /* ---------- Stat strip ---------- */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1px;
+    background: var(--grey-line);
+    border: 1px solid var(--grey-line);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 2.5rem 0;
+  }
+  .stat {
+    background: var(--card);
+    padding: 1.4rem 1rem;
+    text-align: center;
+  }
+  .stat-num {
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 1.9rem;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .stat-lbl {
+    font-family: var(--sans);
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-top: 0.5rem;
+    font-weight: 500;
+  }
+
+  /* ---------- Stage nav ---------- */
+  .stagenav {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: var(--bg);
+    padding: 1rem 0 0.8rem;
+    border-bottom: 1px solid var(--grey-line);
+    margin-bottom: 2.5rem;
+  }
+  .stagenav-inner {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .stage-btn {
+    font-family: var(--sans);
+    font-size: 0.74rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    padding: 0.55rem 1rem;
+    border: 1px solid var(--gold-line);
+    background: transparent;
+    color: var(--text-soft);
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    white-space: nowrap;
+  }
+  .stage-btn:hover { border-color: var(--gold); color: var(--grey); }
+  .stage-btn.active {
+    background: var(--grey);
+    color: #fff;
+    border-color: var(--grey);
+  }
+  .stage-btn .stg { color: var(--gold); font-weight: 600; }
+  .stage-btn.active .stg { color: var(--gold); }
+
+  /* ---------- Stage section ---------- */
+  .stage-section { display: none; animation: fade 0.35s ease; }
+  .stage-section.show { display: block; }
+  @keyframes fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+  .stage-head {
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  .stage-head h2 {
+    font-family: var(--sans);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    font-size: 1.5rem;
+    color: var(--grey);
+  }
+  .stage-head .objective {
+    font-family: var(--sans);
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+  }
+  .stage-head .desc {
+    font-style: italic;
+    color: var(--text-soft);
+    max-width: 600px;
+    margin: 0.5rem auto 0;
+  }
+
+  /* ---------- Category card ---------- */
+  .cat {
+    background: var(--card);
+    border: 1px solid var(--grey-line);
+    border-radius: 12px;
+    padding: 1.8rem 1.9rem;
+    margin-bottom: 1.5rem;
+  }
+  .cat-name {
+    font-family: var(--sans);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.8rem;
+    color: var(--gold);
+    margin-bottom: 0.7rem;
+  }
+  .cat-def {
+    font-style: italic;
+    color: var(--text-soft);
+    border-left: 2px solid var(--gold);
+    padding-left: 1rem;
+    margin-bottom: 1.4rem;
+    font-size: 1.02rem;
+  }
+  .sec-label {
+    font-family: var(--sans);
+    font-size: 0.66rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    font-weight: 600;
+    margin-bottom: 0.7rem;
+  }
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.3rem;
+  }
+  .tag {
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    padding: 0.35rem 0.85rem;
+    border-radius: 30px;
+    background: var(--bg);
+    border: 1px solid var(--grey-line);
+    color: var(--text-soft);
+  }
+  .tag.strong {
+    background: var(--gold-soft);
+    border-color: var(--gold-line);
+    color: var(--grey);
+    font-weight: 500;
+  }
+
+  /* ---------- Responses disclosure ---------- */
+  details { margin-bottom: 1.3rem; }
+  summary {
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--gold);
+    cursor: pointer;
+    list-style: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    user-select: none;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::before {
+    content: "+";
+    font-size: 1rem;
+    line-height: 1;
+  }
+  details[open] summary::before { content: "\2013"; }
+  .resp {
+    margin-top: 0.9rem;
+    padding-top: 0.4rem;
+  }
+  .resp-item {
+    display: flex;
+    gap: 0.9rem;
+    padding: 0.8rem 0;
+    border-top: 1px solid var(--grey-line);
+    font-size: 0.96rem;
+    color: var(--text-soft);
+  }
+  .resp-who {
+    font-family: var(--sans);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--gold);
+    min-width: 48px;
+    padding-top: 0.15rem;
+    text-transform: uppercase;
+  }
+
+  /* ---------- Pathway callout ---------- */
+  .pathway {
+    background: var(--gold-soft);
+    border: 1px solid var(--gold-line);
+    border-radius: 8px;
+    padding: 1.1rem 1.3rem;
+  }
+  .pathway .sec-label { color: var(--gold); margin-bottom: 0.5rem; }
+  .pathway p {
+    font-size: 1rem;
+    color: var(--grey);
+  }
+  .pathway em { font-style: italic; color: var(--grey); }
+
+  /* ---------- Notes ---------- */
+  .notes {
+    margin: 3rem 0;
+    padding: 2rem;
+    background: var(--grey);
+    color: #E8E6E1;
+    border-radius: 12px;
+  }
+  .notes h3 {
+    font-family: var(--sans);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.9rem;
+    color: var(--gold);
+    margin-bottom: 1.1rem;
+  }
+  .notes ul { list-style: none; }
+  .notes li {
+    padding: 0.6rem 0;
+    border-top: 1px solid #5C5955;
+    font-size: 1rem;
+  }
+  .notes li:first-child { border-top: none; }
+  .notes strong { color: #fff; font-weight: 500; }
+
+  /* ---------- Footer ---------- */
+  footer {
+    text-align: center;
+    padding: 3rem 1.5rem 4rem;
+    color: var(--text-faint);
+  }
+  .foot-mark {
+    font-family: var(--sans);
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    color: var(--grey);
+  }
+  .foot-mark span { color: var(--gold); }
+  .foot-sub {
+    font-size: 0.85rem;
+    margin-top: 0.6rem;
+    font-style: italic;
+  }
+
+  @media (max-width: 560px) {
+    .cat { padding: 1.4rem 1.3rem; }
+    .resp-item { flex-direction: column; gap: 0.2rem; }
+    .resp-who { padding-top: 0; }
+  }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="mast-kicker">Disciple-Making Pathway</div>
+  <h1 class="mast-title">Categories of Growth</h1>
+  <p class="mast-sub">A synthesis of elder input on what a disciple needs at each stage of growth</p>
+</header>
+
+<div class="wrap">
+
+  <section class="intro">
+    <p class="lead">Team — thank you for the time and care you put into the input form.</p>
+    <p>What follows is a synthesis of your responses. For each category of growth, I've pulled together the themes where there was clear agreement among us, included a sample of your own words, and offered an early read on what this might mean for the pathway. This is a working document — a first look at where our collective wisdom is converging.</p>
+    <p class="signoff">Read it with the people you lead in mind. Where does this ring true? Where is something missing?</p>
+  </section>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-num">4</div><div class="stat-lbl">Respondents</div></div>
+    <div class="stat"><div class="stat-num">19</div><div class="stat-lbl">Categories</div></div>
+    <div class="stat"><div class="stat-num">4</div><div class="stat-lbl">Stages</div></div>
+    <div class="stat"><div class="stat-num">High</div><div class="stat-lbl">Alignment</div></div>
+  </div>
+
+  <nav class="stagenav">
+    <div class="stagenav-inner">
+      <button class="stage-btn active" data-stage="infant">New Disciple <span class="stg">· Infant</span></button>
+      <button class="stage-btn" data-stage="child">Growing <span class="stg">· Child</span></button>
+      <button class="stage-btn" data-stage="ya">Maturing <span class="stg">· Young Adult</span></button>
+      <button class="stage-btn" data-stage="parent">Multiplying <span class="stg">· Parent</span></button>
+    </div>
+  </nav>
+
+  <!-- ============ INFANT ============ -->
+  <section class="stage-section show" id="infant">
+    <div class="stage-head">
+      <div class="objective">Observation &amp; Imitation · Establishing</div>
+      <h2>New Disciple</h2>
+      <p class="desc">Establishing a new disciple in their faith through presence, modeling, and guided participation.</p>
+    </div>
+
+    <article class="cat">
+      <div class="cat-name">Gospel Story · Foundation</div>
+      <p class="cat-def">Grounded in the gospel and established in their new identity in Christ.</p>
+      <div class="sec-label">Where we agreed</div>
+      <div class="tags">
+        <span class="tag strong">New identity in Christ</span>
+        <span class="tag strong">The weight &amp; gift of grace</span>
+        <span class="tag strong">Repentance leading to joy</span>
+        <span class="tag">Understanding their own story</span>
+        <span class="tag">God's redemptive arc</span>
+        <span class="tag">Confession &amp; forgiveness</span>
+      </div>
+      <details>
+        <summary>In your words</summary>
+        <div class="resp">
+          <div class="resp-item"><span class="resp-who">Sam</span><span>They need to know the weight of Grace and how that plays out in life. The need to experience repentance (sorrow) that leads to joy. The need to know how to unpack their story, God's work in their life.</span></div>
+          <div class="resp-item"><span class="resp-who">Joshua</span><span>Be able to define their new identity in Christ as they learn how and why the gospel has transformed their life.</span></div>
+          <div class="resp-item"><span class="resp-who">Mark</span><span>Know the essentials — sin, salvation is a gift, Christ died for you, confess and believe. Experience the joy of the Lord. A foundational understanding of their new identity (Eph. 1).</span></div>
+          <div class="resp-item"><span class="resp-who">Tim</span><span>Biblical theology — God's saving acts through history. Seeing history from God's perspective: Creation, Fall, Redemption, Restoration.</span></div>
+        </div>
+      </details>
+      <div class="pathway">
+        <div class="sec-label">Pathway implication</div>
+        <p>Strong consensus: a New Disciple needs an experiential grounding in grace — not just information, but the felt weight of forgiveness, repentance, and their new identity. Pathway content should prioritize <em>who they now are</em> before <em>what they should do.</em></p>
+      </div>
+    </article>
+
+    <article class="cat">
+      <div class="cat-name">Life in Community · Foundation</div>
+      <p class="cat-def">Established into biblical community and learning what it means to belong to a spiritual family.</p>
+      <div class="sec-label">Where we agreed</div>
+      <div class="tags">
+        <span class="tag strong">Experiencing genuine care &amp; belonging</span>
+        <span class="tag strong">Community is not optional</span>
+        <span class="tag strong">Learning to be vulnerable</span>
+        <span class="tag">Conflict as growth</span>
+        <span class="tag">Safe spaces to share</span>
+        <span class="tag">Seeing others model it</span>
+      </div>
+      <details>
+        <summary>In your words</summary>
+        <div class="resp">
+          <div class="resp-item"><span class="resp-who">Sam</span><span>The church is a body, conflict is inevitable, growth opportunities abound. Community is a must. We were not meant to walk alone.</span></div>
+          <div class="resp-item"><span class="resp-who">Joshua</span><span>Begin learning how to be reliant, vulnerable and engaged with their new brothers and sisters in Christ.</span></div>
+          <div class="resp-item"><span class="resp-who">Mark</span><span>Experience what it is like to be cared for and loved genuinely by the church. Growing confidence that they can depend on those in community with them.</span></div>
+        </div>
+      </details>
+      <div class="pathway">
+        <div class="sec-label">Pathway implication</div>
+        <p>Unified read: the goal at this stage is <em>belonging before contributing.</em> A New Disciple needs to be received, cared for, and shown what healthy community looks like — not yet asked to lead or serve. Getting them connected to a group quickly is essential.</p>
+      </div>
+    </article>
+  </section>
+
+  <!-- ============ CHILD ============ -->
+  <section class="stage-section" id="child">
+    <div class="stage-head">
+      <div class="objective">Participation &amp; Formation · Growing</div>
+      <h2>Growing Disciple</h2>
+      <p class="desc">Growing a young disciple through practice, guidance, and increasing personal responsibility.</p>
+    </div>
+
+    <article class="cat">
+      <div class="cat-name">Gospel Story · 101</div>
+      <p class="cat-def">Establishing a foundational grasp of the gospel and how it transforms their story and purpose.</p>
+      <div class="sec-label">Where we agreed</div>
+      <div class="tags">
+        <span class="tag strong">Articulating their grace story</span>
+        <span class="tag strong">Identity shaping daily life</span>
+        <span class="tag strong">Gospel touches everyday life</span>
+        <span class="tag">The meta-narrative of Scripture</span>
+        <span class="tag">Looking "different" — and okay with it</span>
+        <span class="tag">Marketplace integration</span>
+      </div>
+      <details>
+        <summary>In your words</summary>
+        <div class="resp">
+          <div class="resp-item"><span class="resp-who">Sam</span><span>They need to know the Truth, the Word, the Bible. Vocational integration — how to take the Gospel into their career or marketplace.</span></div>
+          <div class="resp-item"><span class="resp-who">Joshua</span><span>Able to articulate how the gospel has shaped their new identity so they can share their grace story with someone.</span></div>
+          <div class="resp-item"><span class="resp-who">Mark</span><span>How their new identity shapes the way they make decisions. What it looks like to feel "different" than their unbelieving friends — and be okay with it.</span></div>
+        </div>
+      </details>
+      <div class="pathway">
+        <div class="sec-label">Pathway implication</div>
+        <p>The gospel moves from <em>received</em> to <em>expressed.</em> We want Growing Disciples to tell their story and begin applying gospel logic to real life — work, relationships, decisions.</p>
+      </div>
+    </article>
+
+    <article class="cat">
+      <div class="cat-name">Knowing God · 101</div>
+      <p class="cat-def">Establishing a base of theological clarity that shapes their view of God, themselves, and the world.</p>
+      <div class="sec-label">Where we agreed</div>
+      <div class="tags">
+        <span class="tag strong">Character of God (Trinity, grace, mercy)</span>
+        <span class="tag strong">Basic doctrines of the faith</span>
+        <span class="tag strong">A biblical lens for the world</span>
+        <span class="tag">Scripture sufficient for all of life</span>
+        <span class="tag">The Spirit illuminating Scripture</span>
+        <span class="tag">Confident personal Bible reading</span>
+      </div>
+      <details>
+        <summary>In your words</summary>
+        <div class="resp">
+          <div class="resp-item"><span class="resp-who">Sam</span><span>Character of God, the Trinity, what Grace and Mercy look like in the life of the believer.</span></div>
+          <div class="resp-item"><span class="resp-who">Joshua</span><span>How God's word is sufficient for all of life's circumstances. How they can see the world through a biblical lens.</span></div>
+          <div class="resp-item"><span class="resp-who">Tim</span><span>Introduction to main doctrines: Bibliology, Christology, Soteriology, Anthropology, and theology proper.</span></div>
+          <div class="resp-item"><span class="resp-who">Mark</span><span>Begin to understand the meta-narrative of Scripture. Growing in basic doctrinal things: baptism, communion, trinity.</span></div>
+        </div>
+      </details>
+      <div class="pathway">
+        <div class="sec-label">Pathway implication</div>
+        <p>Clear alignment: a Growing Disciple needs <em>theological grounding, not theological depth.</em> Focus on who God is and key doctrines that form a framework. Tim's doctrinal list and Mark's nod to Summit's belief statements give us a practical starting point.</p>
+      </div>
+    </article>
+
+    <article class="cat">
+      <div class="cat-name">Communion with God · 101</div>
+      <p class="cat-def">Helping them grow in their relationship with God by forming transformative spiritual habits.</p>
+      <div class="sec-label">Where we agreed</div>
+      <div class="tags">
+        <span class="tag strong">How to read the Bible personally</span>
+        <span class="tag strong">Developing a prayer life</span>
+        <span class="tag strong">Dependence on the Holy Spirit</span>
+        <span class="tag">Joy of confessing sin</span>
+        <span class="tag">Fruit of the disciplines</span>
+        <span class="tag">Heart-level surrender</span>
+      </div>
+      <details>
+        <summary>In your words</summary>
+        <div class="resp">
+          <div class="resp-item"><span class="resp-who">Joshua</span><span>They need to know how to read their Bible and how to talk with God. Seeing the fruit of spiritual disciplines and pointing others to them.</span></div>
+          <div class="resp-item"><span class="resp-who">Sam</span><span>The voice of the biblical Shepherd, heart level surrender, silence and solitude, biblical definition of abiding and delight.</span></div>
+          <div class="resp-item"><span class="resp-who">Mark</span><span>Understand why they need to repent even as Christians. How habits shape Christian character. The joy that comes from confessing sin and walking in the light.</span></div>
+        </div>
+      </details>
+      <div class="pathway">
+        <div class="sec-label">Pathway implication</div>
+        <p>We want Growing Disciples to move from <em>knowing about</em> prayer and Scripture to <em>doing it personally.</em> Content here should be practical and formative — actual tools, real experience of God.</p>
+      </div>
+    </article>
+
+    <article class="cat">
+      <div class="cat-name">Life in Community · 101</div>
+      <p class="cat-def">Learning to participate in the body by building relationships, discovering their gifts, and beginning to serve.</p>
+      <div class="sec-label">Where we agreed</div>
+      <div class="tags">
+        <span class="tag strong">Community is necessary for growth</span>
+        <span class="tag strong">Accountability &amp; honesty</span>
+        <span class="tag strong">Beginning to serve</span>
+        <span class="tag">The economics of grace</span>
+        <span class="tag">Discovering gifts in context</span>
+        <span class="tag">Healthy group rhythms</span>
+      </div>
+      <details>
+        <summary>In your words</summary>
+        <div class="resp">
+          <div class="resp-item"><span class="resp-who">Sam</span><span>The economics of grace, accountability, the healing power of confession, and culture-making rhythms played out in Christian circles.</span></div>
+          <div class="resp-item"><span class="resp-who">Joshua</span><span>Engaged in joyful service in their community, learning to appreciate and value the body of Christ.</span></div>
+          <div class="resp-item"><span class="resp-who">Mark</span><span>Really believe community is necessary. Experience others speaking into their life in love — encouraged, rebuked, admonished. Begin serving alongside others.</span></div>
+        </div>
+      </details>
+      <div class="pathway">
+        <div class="sec-label">Pathway implication</div>
+        <p>The shift from Infant: now they're not just <em>receiving</em> community — they're <em>participating.</em> We want Growing Disciples to experience real accountability and begin serving, not just attending.</p>
+      </div>
+    </article>
+
+    <article class="cat">
+      <div class="cat-name">Life on Mission · 101</div>
+      <p class="cat-def">Beginning to live with increasing confidence and intentionality where they live, work, and play.</p>
+      <div class="sec-label">Where we agreed</div>
+      <div class="tags">
+        <span class="tag strong">A biblical basis for everyday placement</span>
+        <span class="tag strong">Gospel shaping relationships</span>
+        <span class="tag strong">Confidence to share — with support</span>
+        <span class="tag">OK not having all the answers</span>
+        <span class="tag">Standing firm at work</span>
+        <span class="tag">Seeing the gospel transform others</span>
+      </div>
+      <details>
+        <summary>In your words</summary>
+        <div class="resp">
+          <div class="resp-item"><span class="resp-who">Sam</span><span>Most don't work for the church and never will. They need the biblical background of everyday placement. They need to be OK not having all the answers.</span></div>
+          <div class="resp-item"><span class="resp-who">Joshua</span><span>The gospel is beginning to shape how they interact with their friends, family and peers.</span></div>
+          <div class="resp-item"><span class="resp-who">Mark</span><span>Articulate the gospel with support around them to step in if needed. Stand firm in their workplaces when they encounter peer pressure.</span></div>
+        </div>
+      </details>
+      <div class="pathway">
+        <div class="sec-label">Pathway implication</div>
+        <p>A recurring theme: <em>everyday life is the mission field.</em> At this stage the goal isn't polished evangelism — it's awareness and growing confidence. Give them language for their normal life, not a program to join.</p>
+      </div>
+    </article>
+  </section>
+
+  <!-- ============ YOUNG ADULT ============ -->
+  <section class="stage-section" id="ya">
+    <div class="stage-head">
+      <div class="objective">Ownership &amp; Transformational Practice · Equipping</div>
+      <h2>Maturing Disciple</h2>
+      <p class="desc">Equipping a maturing disciple through challenge, responsibility, and guided leadership of others.</p>
+    </div>
+
+    <article class="cat">
+      <div class="cat-name">Gospel Story · 201</div>
+      <p class="cat-def">Learning to apply the gospel to all of life, articulate it clearly, and live within God's redemptive mission with growing clarity and purpose.</p>
+      <div class="sec-label">Where we agreed</div>
+      <div class="tags">
+        <span class="tag strong">Refuting lies with gospel truth</span>
+        <span class="tag strong">Never graduating from the basics</span>
+        <span class="tag strong">Helping others apply the gospel</span>
+        <span class="tag">Gospel-centered leadership</span>
+        <span class="tag">Settled confidence in their identity</span>
+        <span class="tag">Apologetics &amp; grace story</span>
+      </div>
+      <details>
+        <summary>In your words</summary>
+        <div class="resp">
+          <div class="resp-item"><span class="resp-who">Mark</span><span>How to refute the lies the devil and their heart tell them. Ability to clearly articulate God's plan of redemption, how they fit into it, why the church matters.</span></div>
+          <div class="resp-item"><span class="resp-who">Joshua</span><span>A thorough understanding of the gospel and their grace story — can help others apply the gospel to their life.</span></div>
+          <div class="resp-item"><span class="resp-who">Sam</span><span>Clarity, Narrative, Heart, and Gospel-Centered Leadership.</span></div>
+          <div class="resp-item"><span class="resp-who">Tim</span><span>Training in sharing one's grace story and apologetics. A greater sense that their salvation is all grace.</span></div>
+        </div>
+      </details>
+      <div class="pathway">
+        <div class="sec-label">Pathway implication</div>
+        <p>The gospel becomes a <em>weapon and a lens,</em> not just a foundation. We want Maturing Disciples to apply it internally (against lies and sin) and externally (helping others). Content should be applied and relational.</p>
+      </div>
+    </article>
+
+    <article class="cat">
+      <div class="cat-name">Knowing God · 201</div>
+      <p class="cat-def">Deepening theological understanding so truth increasingly shapes their experience, identity, and engagement with the world.</p>
+      <div class="sec-label">Where we agreed</div>
+      <div class="tags">
+        <span class="tag strong">Sound doctrine — not tossed around</span>
+        <span class="tag strong">Orthodoxy shaping orthopraxy</span>
+        <span class="tag strong">Identify &amp; engage spiritual warfare</span>
+        <span class="tag">Summit belief statements as anchor</span>
+        <span class="tag">Decisions from biblical conviction</span>
+        <span class="tag">Deeper systematic theology</span>
+      </div>
+      <details>
+        <summary>In your words</summary>
+        <div class="resp">
+          <div class="resp-item"><span class="resp-who">Mark</span><span>Grounded in sound doctrine — not easily tossed to and fro. Know Summit's "Our Beliefs" statements and articulate why they personally believe them. Able to identify and engage in spiritual warfare.</span></div>
+          <div class="resp-item"><span class="resp-who">Joshua</span><span>See deeper theological truths. Making life decisions in light of biblical conviction rather than worldly aspirations.</span></div>
+          <div class="resp-item"><span class="resp-who">Tim</span><span>Historical theology — awareness of doctrines and controversies found in creeds and councils since the 1st century.</span></div>
+        </div>
+      </details>
+      <div class="pathway">
+        <div class="sec-label">Pathway implication</div>
+        <p>We want Maturing Disciples to move from <em>knowing doctrine</em> to <em>being shaped by it.</em> Mark's reference to Summit's belief statements is worth taking seriously as a curriculum anchor here. Spiritual warfare also surfaced as a distinctive need.</p>
+      </div>
+    </article>
+
+    <article class="cat">
+      <div class="cat-name">Communion with God · 201</div>
+      <p class="cat-def">Learning to abide deeply with God through mature spiritual disciplines that shape a life of ongoing obedience and surrender.</p>
+      <div class="sec-label">Where we agreed</div>
+      <div class="tags">
+        <span class="tag strong">Confident in the disciplines</span>
+        <span class="tag strong">Leading others in study &amp; prayer</span>
+        <span class="tag strong">A felt intimacy with God</span>
+        <span class="tag">Comfortable in silence</span>
+        <span class="tag">Discerning the Spirit's fruit in others</span>
+        <span class="tag">When God "feels" distant</span>
+      </div>
+      <details>
+        <summary>In your words</summary>
+        <div class="resp">
+          <div class="resp-item"><span class="resp-who">Joshua</span><span>A disciplined experience of God through prayer and Scripture with ability to lead others in Bible study and prayer. A felt sense of intimacy with God.</span></div>
+          <div class="resp-item"><span class="resp-who">Sam</span><span>Being OK in the quiet and stillness. Prayer and silence, relational rest, listening skills, and contentment with God alone.</span></div>
+          <div class="resp-item"><span class="resp-who">Mark</span><span>How to confidently practice the spiritual disciplines. Ability to discern fruit of the Spirit in others. How to respond when God "feels" distant.</span></div>
+        </div>
+      </details>
+      <div class="pathway">
+        <div class="sec-label">Pathway implication</div>
+        <p>The shift here is significant: from <em>forming habits</em> to <em>leading others</em> in them. A Maturing Disciple should be able to invite others into their prayer life, not just maintain one.</p>
+      </div>
+    </article>
+
+    <article class="cat">
+      <div class="cat-name">Life in Community · 201</div>
+      <p class="cat-def">Learning to live in accountable, intentional relationships while beginning to take responsibility for the spiritual growth of others.</p>
+      <div class="sec-label">Where we agreed</div>
+      <div class="tags">
+        <span class="tag strong">Helping others fight sin</span>
+        <span class="tag strong">Understanding church structure &amp; loyalty</span>
+        <span class="tag strong">Beginning to dream about leading</span>
+        <span class="tag">Walking through hard things together</span>
+        <span class="tag">Shepherding rhythms</span>
+        <span class="tag">Knowing when to refer for counseling</span>
+      </div>
+      <details>
+        <summary>In your words</summary>
+        <div class="resp">
+          <div class="resp-item"><span class="resp-who">Mark</span><span>How to help others within their community fight sin. What it means to fight beside others. Beginning to dream about leading community.</span></div>
+          <div class="resp-item"><span class="resp-who">Sam</span><span>Know the overall structure of the local church, biblical loyalty, the ability to point others to counseling when needed, understanding of shared suffering.</span></div>
+          <div class="resp-item"><span class="resp-who">Joshua</span><span>Initiating and pursuing community — having a vision for future leadership, aware of the dangers of an absence of community.</span></div>
+        </div>
+      </details>
+      <div class="pathway">
+        <div class="sec-label">Pathway implication</div>
+        <p>Community shifts from <em>experienced</em> to <em>stewarded.</em> Maturing Disciples should be moving toward leadership — not just participating, but beginning to carry others. Practical shepherding skills emerge as a key need.</p>
+      </div>
+    </article>
+
+    <article class="cat">
+      <div class="cat-name">Life on Mission · 201</div>
+      <p class="cat-def">Taking intentional ownership of their personal mission — actively engaging the people and places God has positioned them in with gospel clarity and purpose.</p>
+      <div class="sec-label">Where we agreed</div>
+      <div class="tags">
+        <span class="tag strong">Knowing who they're on mission to</span>
+        <span class="tag strong">Perseverance through opposition</span>
+        <span class="tag strong">Demonstrating mission to others</span>
+        <span class="tag">Sharing clearly without a safety net</span>
+        <span class="tag">Salt &amp; light in community</span>
+        <span class="tag">Patience in mission</span>
+      </div>
+      <details>
+        <summary>In your words</summary>
+        <div class="resp">
+          <div class="resp-item"><span class="resp-who">Mark</span><span>Who is in their circle and where they are spiritually. Experience attacks on mission, but perseverance through God's grace. Begin demonstrating how to do this to others.</span></div>
+          <div class="resp-item"><span class="resp-who">Joshua</span><span>Sharing the gospel in the places they live, work and play. Able to clearly share the gospel with those they come in contact with.</span></div>
+          <div class="resp-item"><span class="resp-who">Sam</span><span>They need to know patience, be in community, know the Gospel story, and practice their own biblical leadership benchmarks at work and home.</span></div>
+        </div>
+      </details>
+      <div class="pathway">
+        <div class="sec-label">Pathway implication</div>
+        <p>Mission becomes owned and intentional. Knowing <em>who</em> you're on mission to is a practical anchor several of us named. Pathway content should help Maturing Disciples name their mission field and engage it without always needing others present.</p>
+      </div>
+    </article>
+  </section>
+
+  <!-- ============ PARENT ============ -->
+  <section class="stage-section" id="parent">
+    <div class="stage-head">
+      <div class="objective">Modeling &amp; Multiplication · Training</div>
+      <h2>Multiplying Disciple</h2>
+      <p class="desc">Training leaders to make disciples through a life worth imitating and intentional investment in others.</p>
+    </div>
+
+    <article class="cat">
+      <div class="cat-name">Leading Others · 301 · All Categories</div>
+      <p class="cat-def">Equipped to shepherd, teach, and reproduce — investing in others so they too can make disciples.</p>
+      <div class="sec-label">Where we agreed</div>
+      <div class="tags">
+        <span class="tag strong">Know their gifts, style &amp; limits</span>
+        <span class="tag strong">Assist → Watch → Learn → Do</span>
+        <span class="tag strong">Accountability beyond those they lead</span>
+        <span class="tag strong">Christ-like communication &amp; EQ</span>
+        <span class="tag strong">Heart dynamics &amp; idols</span>
+        <span class="tag">Teaching others to study the Bible</span>
+        <span class="tag">Lament &amp; guiding others in it</span>
+        <span class="tag">Spiritual warfare at a leadership level</span>
+        <span class="tag">Conflict resolution &amp; change</span>
+        <span class="tag">Listening — slow to speak</span>
+        <span class="tag">Sitting with people in pain</span>
+        <span class="tag">Defined training pipelines</span>
+        <span class="tag">Flexibility &amp; adaptability</span>
+      </div>
+      <details>
+        <summary>In your words</summary>
+        <div class="resp">
+          <div class="resp-item"><span class="resp-who">Sam</span><span>They need to know their HEART and HEAD. Both. Their gifts, leadership style, and limitations. They need to Assist, Watch, Learn, and Do. Leadership changes — be flexible, try new ways, and try again. Listen to God.</span></div>
+          <div class="resp-item"><span class="resp-who">Joshua</span><span>Lead others in Bible study and prayer. Teach others to share and apply the gospel. Facilitate community. A simple frame: Infant → See. Child → Learn. Young Adult → Do. Adult → Teach.</span></div>
+          <div class="resp-item"><span class="resp-who">Mark</span><span>Heart dynamics — helping people identify their own heart idols. Lament. Doctrinal clarity — able to teach with clarity. Slow to speak, quick to listen. Comfortable sitting with people walking through hard things.</span></div>
+          <div class="resp-item"><span class="resp-who">Tim</span><span>Christ-like communication, strategic thinking, emotional intelligence, change management, active listening, spiritual discernment, conflict resolution, adaptability. Specific pipelines for CG leaders, ministry leads, deacons, elders.</span></div>
+        </div>
+      </details>
+      <div class="pathway">
+        <div class="sec-label">Pathway implication</div>
+        <p>This stage drew our richest and most varied input — which makes sense. Three threads emerge: <em>self-knowledge</em> (gifts, limits, style), <em>relational skill</em> (listening, sitting with pain, conflict), and <em>reproducibility</em> (able to train others in what they themselves do). Joshua's See → Learn → Do → Teach framing is worth exploring as a simple way to communicate the whole pathway.</p>
+      </div>
+    </article>
+  </section>
+
+  <!-- ============ NOTES ============ -->
+  <div class="notes">
+    <h3>A Few Things I'm Noticing</h3>
+    <ul>
+      <li><strong>Identity before activity.</strong> Across every stage, we keep returning to who a person <em>is</em> in Christ before what they should <em>do</em>. That instinct is worth protecting as we build.</li>
+      <li><strong>A clear arc of reproduction.</strong> Receiving → participating → leading → reproducing. The progression from stage to stage is remarkably consistent across all of our responses.</li>
+      <li><strong>See · Learn · Do · Teach.</strong> Joshua offered this as a simple way to name each stage. It may be the clearest language we have for explaining the pathway to the whole church.</li>
+      <li><strong>One gap to decide together.</strong> Our form didn't ask about Communion with God at the New Disciple stage, so we have no input there yet. Worth deciding whether that category belongs at this stage or if our current structure is right.</li>
+    </ul>
+  </div>
+
+</div>
+
+<footer>
+  <div class="foot-mark">SUMMIT<span>·</span>CHURCH</div>
+  <p class="foot-sub">Glorifying God by making disciples who represent the gospel to every man, woman, and child.</p>
+</footer>
+
+<script>
+  const btns = document.querySelectorAll('.stage-btn');
+  const sections = document.querySelectorAll('.stage-section');
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.stage;
+      btns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      sections.forEach(s => s.classList.toggle('show', s.id === target));
+      window.scrollTo({ top: document.querySelector('.stagenav').offsetTop - 8, behavior: 'smooth' });
+    });
+  });
+</script>
+
+</body>
+</html>
